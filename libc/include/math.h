@@ -11,6 +11,81 @@
 
 __BEGIN_DECLS
 
+/******************************************************************************
+ * Floating point data types                                                  *
+ ******************************************************************************/
+
+/*  Define float_t and double_t per C standard, ISO/IEC 9899:2011 7.12 2,
+    taking advantage of GCC's __FLT_EVAL_METHOD__ (which a compiler may
+    define anytime and GCC does) that shadows FLT_EVAL_METHOD (which a
+    compiler must define only in float.h).                                    */
+#if __FLT_EVAL_METHOD__ == 0
+typedef float float_t;
+typedef double double_t;
+#elif __FLT_EVAL_METHOD__ == 1
+typedef double float_t;
+typedef double double_t;
+#elif __FLT_EVAL_METHOD__ == 2 || __FLT_EVAL_METHOD__ == -1
+typedef long double float_t;
+typedef long double double_t;
+#else /* __FLT_EVAL_METHOD__ */
+#   error "Unsupported value of __FLT_EVAL_METHOD__."
+#endif /* __FLT_EVAL_METHOD__ */
+
+#if defined(__GNUC__)
+#   define    HUGE_VAL     __builtin_huge_val()
+#   define    HUGE_VALF    __builtin_huge_valf()
+#   define    HUGE_VALL    __builtin_huge_vall()
+#   define    NAN          __builtin_nanf("0x7fc00000")
+#else
+#   define    HUGE_VAL     1e500
+#   define    HUGE_VALF    1e50f
+#   define    HUGE_VALL    1e5000L
+#   define    NAN          __nan()
+#endif
+
+#define INFINITY    HUGE_VALF
+
+/******************************************************************************
+ *      Taxonomy of floating point data types                                 *
+ ******************************************************************************/
+
+#define FP_NAN          1
+#define FP_INFINITE     2
+#define FP_ZERO         3
+#define FP_NORMAL       4
+#define FP_SUBNORMAL    5
+#define FP_SUPERNORMAL  6 /* legacy PowerPC support; this is otherwise unused */
+
+#if defined __arm64__ || defined __ARM_VFPV4__
+/*  On these architectures, fma(), fmaf( ), and fmal( ) are generally about as
+    fast as (or faster than) separate multiply and add of the same operands.  */
+#   define FP_FAST_FMA     1
+#   define FP_FAST_FMAF    1
+#   define FP_FAST_FMAL    1
+#elif (defined __i386__ || defined __x86_64__) && (defined __FMA__ || defined __AVX512F__)
+/*  When targeting the FMA ISA extension, fma() and fmaf( ) are generally
+    about as fast as (or faster than) separate multiply and add of the same
+    operands, but fmal( ) may be more costly.                                 */
+#   define FP_FAST_FMA     1
+#   define FP_FAST_FMAF    1
+#   undef  FP_FAST_FMAL
+#else
+/*  On these architectures, fma( ), fmaf( ), and fmal( ) function calls are
+    significantly more costly than separate multiply and add operations.      */
+#   undef  FP_FAST_FMA
+#   undef  FP_FAST_FMAF
+#   undef  FP_FAST_FMAL
+#endif
+
+/* The values returned by `ilogb' for 0 and NaN respectively. */
+#define FP_ILOGB0      (-2147483647 - 1)
+#define FP_ILOGBNAN    (-2147483647 - 1)
+
+/* Bitmasks for the math_errhandling macro.  */
+#define MATH_ERRNO        1    /* errno set by math functions.  */
+#define MATH_ERREXCEPT    2    /* Exceptions raised by math functions.  */
+
 typedef float float_t;
 typedef double double_t;
 
