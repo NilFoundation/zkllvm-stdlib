@@ -14,19 +14,21 @@
 #define _GRAPH      (_ALNUM | _PUNCT)
 #define _PRINT      (_GRAPH | _BLANK)
 
-#define isalnum(c)  ((int) (_ptype[(int) (c)] & _ALNUM))
-#define isalpha(c)  ((int) (_ptype[(int) (c)] & _ALPHA))
-#define iscntrl(c)  ((int) (_ptype[(int) (c)] & _CNTRL))
-#define isdigit(c)  ((int) (_ptype[(int) (c)] & _DIGIT))
-#define isgraph(c)  ((int) (_ptype[(int) (c)] & _GRAPH))
-#define islower(c)  ((int) (_ptype[(int) (c)] & _LOWER))
-#define isprint(c)  ((int) (_ptype[(int) (c)] & _PRINT))
-#define ispunct(c)  ((int) (_ptype[(int) (c)] & _PUNCT))
-#define isspace(c)  ((int) (_ptype[(int) (c)] & _SPACE))
-#define isupper(c)  ((int) (_ptype[(int) (c)] & _UPPER))
-#define isxdigit(c) ((int) (_ptype[(int) (c)] & _XDIGIT))
-#define tolower(c)  ((int) (_plmap[(int) (c)]))
-#define toupper(c)  ((int) (_pumap[(int) (c)]))
+#define __isalnum(c)  ((int) (_ptype[(int) (c)] & _ALNUM))
+#define __isalpha(c)  ((int) (_ptype[(int) (c)] & _ALPHA))
+#define __iscntrl(c)  ((int) (_ptype[(int) (c)] & _CNTRL))
+#define __isdigit(c)  ((int) (_ptype[(int) (c)] & _DIGIT))
+#define __isgraph(c)  ((int) (_ptype[(int) (c)] & _GRAPH))
+#define __islower(c)  ((int) (_ptype[(int) (c)] & _LOWER))
+#define __isprint(c)  ((int) (_ptype[(int) (c)] & _PRINT))
+#define __ispunct(c)  ((int) (_ptype[(int) (c)] & _PUNCT))
+#define __isspace(c)  ((int) (_ptype[(int) (c)] & _SPACE))
+#define __isupper(c)  ((int) (_ptype[(int) (c)] & _UPPER))
+#define __isxdigit(c) ((int) (_ptype[(int) (c)] & _XDIGIT))
+#define __tolower(c)  ((int) (_plmap[(int) (c)]))
+#define __toupper(c)  ((int) (_pumap[(int) (c)]))
+
+int isascii (int c);
 
 #include <sys/cdefs.h>
 
@@ -36,31 +38,35 @@ extern const unsigned short int *_ptype;
 extern const short int *_plmap;
 extern const short int *_pumap;
 
+inline bool isblank(char ch) {
+    return ch ==' ' || ch =='\t';
+}
+
 int (isalnum)(int);
-
 int (isalpha)(int);
-
 int (iscntrl)(int);
-
 int (isdigit)(int);
-
 int (isgraph)(int);
-
 int (islower)(int);
-
 int (isprint)(int);
-
 int (ispunct)(int);
-
 int (isspace)(int);
-
 int (isupper)(int);
-
 int (isxdigit)(int);
-
 int (tolower)(int);
-
 int (toupper)(int);
+
+#define isalnum_l(c,l)	isalnum (c)
+#define isalpha_l(c,l)	isalpha (c)
+#define iscntrl_l(c,l)	iscntrl (c)
+#define isdigit_l(c,l)	isdigit (c)
+#define islower_l(c,l)	islower (c)
+#define isgraph_l(c,l)	isgraph (c)
+#define isprint_l(c,l)	isprint (c)
+#define ispunct_l(c,l)	ispunct (c)
+#define isspace_l(c,l)	isspace (c)
+#define isupper_l(c,l)	isupper (c)
+#define isxdigit_l(c,l)	isxdigit (c)
 
 __END_DECLS
 

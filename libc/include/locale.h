@@ -12,9 +12,18 @@
 #define LC_NUMERIC      4
 #define LC_TIME         5
 
+#define LC_COLLATE_MASK			(1 << 0)
+#define LC_CTYPE_MASK			(1 << 1)
+#define LC_MESSAGES_MASK		(1 << 2)
+#define LC_MONETARY_MASK		(1 << 3)
+#define LC_NUMERIC_MASK			(1 << 4)
+#define LC_TIME_MASK			(1 << 5)
+
 #include <sys/cdefs.h>
 
 __BEGIN_DECLS
+
+typedef void *locale_t;
 
 struct lconv {
     char *decimal_point;

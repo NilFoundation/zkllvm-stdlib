@@ -12,6 +12,8 @@ __BEGIN_DECLS
 
 extern int _errno;
 
+typedef int errno_t;
+
 __END_DECLS
 
 #endif /* _ERRNO_H */

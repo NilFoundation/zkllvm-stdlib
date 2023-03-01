@@ -88,7 +88,7 @@ public:
     logic_error(const logic_error&) _NOEXCEPT;
     logic_error& operator=(const logic_error&) _NOEXCEPT;
 
-    virtual ~logic_error() _NOEXCEPT;
+    virtual ~logic_error() _NOEXCEPT {}
 
     virtual const char* what() const _NOEXCEPT;
 #else
@@ -111,7 +111,7 @@ public:
     runtime_error(const runtime_error&) _NOEXCEPT;
     runtime_error& operator=(const runtime_error&) _NOEXCEPT;
 
-    virtual ~runtime_error() _NOEXCEPT;
+    virtual ~runtime_error() _NOEXCEPT {}
 
     virtual const char* what() const _NOEXCEPT;
 #else
@@ -129,7 +129,7 @@ public:
     _LIBCPP_INLINE_VISIBILITY explicit domain_error(const char* __s)   : logic_error(__s) {}
 
 #ifndef _LIBCPP_ABI_VCRUNTIME
-    virtual ~domain_error() _NOEXCEPT;
+    virtual ~domain_error() _NOEXCEPT {}
 #endif
 };
 
@@ -141,7 +141,7 @@ public:
     _LIBCPP_INLINE_VISIBILITY explicit invalid_argument(const char* __s)   : logic_error(__s) {}
 
 #ifndef _LIBCPP_ABI_VCRUNTIME
-    virtual ~invalid_argument() _NOEXCEPT;
+    virtual ~invalid_argument() _NOEXCEPT {}
 #endif
 };
 
@@ -152,7 +152,7 @@ public:
     _LIBCPP_INLINE_VISIBILITY explicit length_error(const string& __s) : logic_error(__s) {}
     _LIBCPP_INLINE_VISIBILITY explicit length_error(const char* __s)   : logic_error(__s) {}
 #ifndef _LIBCPP_ABI_VCRUNTIME
-    virtual ~length_error() _NOEXCEPT;
+    virtual ~length_error() _NOEXCEPT {}
 #endif
 };
 
@@ -164,7 +164,7 @@ public:
     _LIBCPP_INLINE_VISIBILITY explicit out_of_range(const char* __s)   : logic_error(__s) {}
 
 #ifndef _LIBCPP_ABI_VCRUNTIME
-    virtual ~out_of_range() _NOEXCEPT;
+    virtual ~out_of_range() _NOEXCEPT {}
 #endif
 };
 
@@ -176,7 +176,7 @@ public:
     _LIBCPP_INLINE_VISIBILITY explicit range_error(const char* __s)   : runtime_error(__s) {}
 
 #ifndef _LIBCPP_ABI_VCRUNTIME
-    virtual ~range_error() _NOEXCEPT;
+    virtual ~range_error() _NOEXCEPT {}
 #endif
 };
 
@@ -188,7 +188,7 @@ public:
     _LIBCPP_INLINE_VISIBILITY explicit overflow_error(const char* __s)   : runtime_error(__s) {}
 
 #ifndef _LIBCPP_ABI_VCRUNTIME
-    virtual ~overflow_error() _NOEXCEPT;
+    virtual ~overflow_error() _NOEXCEPT {}
 #endif
 };
 
@@ -200,7 +200,7 @@ public:
     _LIBCPP_INLINE_VISIBILITY explicit underflow_error(const char* __s)   : runtime_error(__s) {}
 
 #ifndef _LIBCPP_ABI_VCRUNTIME
-    virtual ~underflow_error() _NOEXCEPT;
+    virtual ~underflow_error() _NOEXCEPT {}
 #endif
 };
 

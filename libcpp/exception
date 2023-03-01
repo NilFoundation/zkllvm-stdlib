@@ -98,7 +98,7 @@ class _LIBCPP_EXCEPTION_ABI exception
 {
 public:
     _LIBCPP_INLINE_VISIBILITY exception() _NOEXCEPT {}
-    virtual ~exception() _NOEXCEPT;
+    virtual ~exception() _NOEXCEPT {}
     virtual const char* what() const _NOEXCEPT;
 };
 
@@ -107,7 +107,7 @@ class _LIBCPP_EXCEPTION_ABI bad_exception
 {
 public:
     _LIBCPP_INLINE_VISIBILITY bad_exception() _NOEXCEPT {}
-    virtual ~bad_exception() _NOEXCEPT;
+    virtual ~bad_exception() _NOEXCEPT {}
     virtual const char* what() const _NOEXCEPT;
 };
 #endif // !_LIBCPP_ABI_VCRUNTIME
@@ -238,7 +238,7 @@ public:
     nested_exception() _NOEXCEPT;
 //     nested_exception(const nested_exception&) noexcept = default;
 //     nested_exception& operator=(const nested_exception&) noexcept = default;
-    virtual ~nested_exception() _NOEXCEPT;
+    virtual ~nested_exception() _NOEXCEPT {}
 
     // access functions
     _LIBCPP_NORETURN void rethrow_nested() const;

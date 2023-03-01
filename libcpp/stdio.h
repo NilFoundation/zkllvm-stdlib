@@ -117,3 +117,32 @@ void perror(const char* s);
 #endif
 
 #endif  // _LIBCPP_STDIO_H
+
+
+#define	_IOFBF	0		/* setvbuf should set fully buffered */
+#define	_IOLBF	1		/* setvbuf should set line buffered */
+#define	_IONBF	2		/* setvbuf should set unbuffered */
+
+#define	BUFSIZ	1024		/* size of buffer used by setbuf */
+#define	EOF	(-1)
+
+/* must be == _POSIX_STREAM_MAX <limits.h> */
+#define	FOPEN_MAX	20	/* must be <= OPEN_MAX <sys/syslimits.h> */
+#define	FILENAME_MAX	1024	/* must be <= PATH_MAX <sys/syslimits.h> */
+
+/* System V/ANSI C; this is the wrong way to do this, do *not* use these. */
+#ifndef _ANSI_SOURCE
+#define	P_tmpdir	"/var/tmp/"
+#endif
+#define	L_tmpnam	1024	/* XXX must be == PATH_MAX */
+#define	TMP_MAX		308915776
+
+#ifndef SEEK_SET
+#define	SEEK_SET	0	/* set file offset to offset */
+#endif
+#ifndef SEEK_CUR
+#define	SEEK_CUR	1	/* set file offset to current plus offset */
+#endif
+#ifndef SEEK_END
+#define	SEEK_END	2	/* set file offset to EOF plus offset */
+#endif

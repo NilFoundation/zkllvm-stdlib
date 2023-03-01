@@ -7,6 +7,7 @@
 
 #include <stdarg.h>
 #include <stddef.h>
+#include <locale.h>
 
 #define _IOFBF          0
 #define _IOLBF          1
@@ -27,12 +28,6 @@
 #define stdin           _stdin
 #define stdout          _stdout
 #define stderr          _stderr
-
-#define getc(s)         ((int) ((s)->_ptr < (s)->_rend ? *(unsigned char *) (s)->_ptr++ : fgetc(s)))
-#define getchar()       getc(stdin)
-#define putc(c, s)      ((int) ((s)->_ptr + 1 < (s)->_wend ? \
-    (*(unsigned char *) (s)->_ptr++ = (unsigned char) (c)) : fputc(c, s)))
-#define putchar(c)      putc(c, stdout)
 
 #include <sys/cdefs.h>
 
@@ -56,87 +51,86 @@ extern FILE *_stdin;
 extern FILE *_stdout;
 extern FILE *_stderr;
 
-int remove(const char *);
-
-int rename(const char *, const char *);
-
+int remove(const char *filename);
+int rename(const char *from, const char *to);
 FILE *tmpfile(void);
+char *tmpnam(char *s);
+int fclose(FILE *stream);
+int fflush(FILE *stream);
+FILE *fopen(const char * filename,
+            const char * mode);
+FILE *freopen(const char * filename,
+              const char * mode,
+              FILE * stream);
+void setbuf(FILE * stream,
+            char * buf);
+int setvbuf(FILE * stream,
+            char * buf,
+            int mode, size_t size);
+int fprintf(FILE * stream,
+            const char * format, ...);
+int fscanf(FILE * stream,
+           const char * format, ...);
+int printf(const char * format, ...);
+int scanf(const char * format, ...);
+int snprintf(char * s, size_t n,
+             const char * format, ...);
+int sprintf(char * s,
+            const char * format, ...);
+int sscanf(const char * s,
+           const char * format, ...);
+int vfprintf(FILE * stream,
+             const char * format, va_list arg);
+int vfscanf(FILE * stream,
+            const char * format, va_list arg);
+int vprintf(const char * format, va_list arg);
+int vscanf(const char * format, va_list arg);
+int vsnprintf(char * s, size_t n,
+              const char * format, va_list arg);
+int vsprintf(char * s,
+             const char * format, va_list arg);
+int vsscanf(const char * s,
+            const char * format, va_list arg);
+int fgetc(FILE *stream);
+char *fgets(char * s, int n,
+            FILE * stream);
+int fputc(int c, FILE *stream);
+int fputs(const char * s, FILE * stream);
+int getc(FILE *stream);
+int getchar(void);
+int putc(int c, FILE *stream);
+int putchar(int c);
+int puts(const char *s);
+int ungetc(int c, FILE *stream);
+size_t fread(void * ptr,
+             size_t size, size_t nmemb,
+             FILE * stream);
+size_t fwrite(const void * ptr,
+              size_t size, size_t nmemb,
+              FILE * stream);
+int fgetpos(FILE * stream,
+            fpos_t * pos);
+int fseek(FILE *stream, long int offset, int whence);
+int fsetpos(FILE *stream, const fpos_t *pos);
+long int ftell(FILE *stream);
+void rewind(FILE *stream);
+void clearerr(FILE *stream);
+int feof(FILE *stream);
+int ferror(FILE *stream);
+void perror(const char *s);
 
-char *tmpnam(char *);
+int scanf_l(locale_t , const char * __restrict, ...);
+int sprintf_l(char * __restrict, locale_t __restrict, const char * __restrict, ...);
+int sscanf_l(const char * __restrict, locale_t __restrict, const char * __restrict, ...);
 
-int fclose(FILE *);
+int	snprintf_l(char * __restrict, size_t, locale_t __restrict, const char * __restrict, ...);
+int vfscanf_l(FILE * __restrict, locale_t __restrict, const char * __restrict, va_list);
+int vscanf_l(locale_t __restrict, const char * __restrict, va_list);
+int vsnprintf_l(char * __restrict, size_t, locale_t __restrict, const char * __restrict, va_list);
+int vsscanf_l(const char * __restrict, locale_t __restrict, const char * __restrict, va_list);
 
-int fflush(FILE *);
-
-FILE *fopen(const char *, const char *);
-
-FILE *freopen(const char *, const char *, FILE *);
-
-void setbuf(FILE *, char *);
-
-int setvbuf(FILE *, char *, int, size_t);
-
-int fprintf(FILE *, const char *, ...);
-
-int fscanf(FILE *, const char *, ...);
-
-int printf(const char *, ...);
-
-int scanf(const char *, ...);
-
-int sprintf(char *, const char *, ...);
-
-int sscanf(const char *, const char *, ...);
-
-int vfprintf(FILE *, const char *, va_list);
-
-int vprintf(const char *, va_list);
-
-int vsprintf(char *, const char *, va_list);
-
-int fgetc(FILE *);
-
-char *fgets(char *, int, FILE *);
-
-int fputc(int, FILE *);
-
-int fputs(const char *, FILE *);
-
-int (getc)(FILE *);
-
-int (getchar)(void);
-
-char *gets(char *);
-
-int (putc)(int, FILE *);
-
-int (putchar)(int);
-
-int puts(const char *);
-
-int ungetc(int, FILE *);
-
-size_t fread(void *, size_t, size_t, FILE *);
-
-size_t fwrite(const void *, size_t, size_t, FILE *);
-
-int fgetpos(FILE *, fpos_t *);
-
-int fseek(FILE *, long int, int);
-
-int fsetpos(FILE *, const fpos_t *);
-
-long int ftell(FILE *);
-
-void rewind(FILE *);
-
-void clearerr(FILE *);
-
-int feof(FILE *);
-
-int ferror(FILE *);
-
-void perror(const char *);
+int	asprintf_l(char ** __restrict, locale_t __restrict, const char * __restrict, ...);
+int vasprintf_l(char ** __restrict, locale_t __restrict, const char * __restrict, va_list);
 
 __END_DECLS
 

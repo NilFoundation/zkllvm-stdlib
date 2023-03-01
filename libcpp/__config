@@ -10,6 +10,23 @@
 #ifndef _LIBCPP_CONFIG
 #define _LIBCPP_CONFIG
 
+#ifdef __EVM__
+
+#define _LIBCPP_ABI_UNSTABLE
+#define _LIBCPP_HIDE_FROM_ABI_PER_TU_BY_DEFAULT
+#define _LIBCPP_HAS_NO_GLOBAL_FILESYSTEM_NAMESPACE
+#define _LIBCPP_HAS_NO_STDIN
+#define _LIBCPP_HAS_NO_STDOUT
+#define _LIBCPP_HAS_NO_MONOTONIC_CLOCK
+#define _LIBCPP_HAS_NO_THREAD_UNSAFE_C_FUNCTIONS
+#define _LIBCPP_DISABLE_VISIBILITY_ANNOTATIONS
+#define _LIBCPP_NO_VCRUNTIME
+#define _LIBCPP_LOCALE__L_EXTENSIONS
+
+#undef __FAST_MATH__
+
+#endif // __EVM__
+
 #if defined(_MSC_VER) && !defined(__clang__)
 #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
 #    define _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
@@ -710,15 +727,6 @@ typedef __char32_t char32_t;
 #  define _LIBCPP_INTERNAL_LINKAGE _LIBCPP_ALWAYS_INLINE
 #endif
 
-#if __has_attribute(exclude_from_explicit_instantiation)
-#  define _LIBCPP_EXCLUDE_FROM_EXPLICIT_INSTANTIATION __attribute__ ((__exclude_from_explicit_instantiation__))
-#else
-   // Try to approximate the effect of exclude_from_explicit_instantiation
-   // (which is that entities are not assumed to be provided by explicit
-   // template instantiations in the dylib) by always inlining those entities.
-#  define _LIBCPP_EXCLUDE_FROM_EXPLICIT_INSTANTIATION _LIBCPP_ALWAYS_INLINE
-#endif
-
 #ifndef _LIBCPP_HIDE_FROM_ABI_PER_TU
 #  ifndef _LIBCPP_HIDE_FROM_ABI_PER_TU_BY_DEFAULT
 #    define _LIBCPP_HIDE_FROM_ABI_PER_TU 0
@@ -1126,6 +1134,10 @@ _LIBCPP_FUNC_VIS extern "C" void __sanitizer_annotate_contiguous_container(
 #error _LIBCPP_HAS_NO_MONOTONIC_CLOCK may only be defined when \
        _LIBCPP_HAS_NO_THREADS is defined.
 #endif
+#ifdef __EVM__
+// To avoid error "_LIBCPP_HAS_NO_THREADS cannot be set when __STDCPP_THREADS__ is set"
+#undef __STDCPP_THREADS__
+#endif // __EVM__
 
 #if defined(__STDCPP_THREADS__) && defined(_LIBCPP_HAS_NO_THREADS)
 #error _LIBCPP_HAS_NO_THREADS cannot be set when __STDCPP_THREADS__ is set.

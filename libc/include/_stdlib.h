@@ -1,7 +1,7 @@
 #ifndef __STDLIB_H
 #define __STDLIB_H
 
-#include <_stdint.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <sys/cdefs.h>
 

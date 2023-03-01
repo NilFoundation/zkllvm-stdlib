@@ -271,6 +271,9 @@ __bitset<_N_words, _Size>::__bitset(unsigned long long __v) _NOEXCEPT
     : __first_{static_cast<__storage_type>(__v),
                 _Size >= 2 * __bits_per_word ? static_cast<__storage_type>(__v >> __bits_per_word)
                 : static_cast<__storage_type>((__v >> __bits_per_word) & (__storage_type(1) << (_Size - __bits_per_word)) - 1)}
+#elif __SIZEOF_SIZE_T__ == 32
+    // TODO: EVM
+    : __first_{__v}
 #else
 #error This constructor has not been ported to this platform
 #endif
