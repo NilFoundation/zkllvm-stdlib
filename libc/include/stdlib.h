@@ -59,8 +59,17 @@ int rand(void);
 void srand(unsigned int seed);
 void *aligned_alloc(size_t alignment, size_t size);
 void *calloc(size_t nmemb, size_t size);
+#ifdef __ASSIGNER__
+void free(void *ptr) {
+    __builtin_assigner_free(ptr);
+}
+void *malloc(size_t size) {
+    return __builtin_assigner_malloc(size);
+}
+#else
 void free(void *ptr);
 void *malloc(size_t size);
+#endif
 void *realloc(void *ptr, size_t size);
 _Noreturn void abort(void);
 int atexit(void (*func)(void));
