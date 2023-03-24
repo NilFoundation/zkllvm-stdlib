@@ -10,7 +10,7 @@
 #ifndef _LIBCPP_CONFIG
 #define _LIBCPP_CONFIG
 
-#ifdef __EVM__
+#if defined(__EVM__) || defined (__ASSIGNER__)
 
 #define _LIBCPP_ABI_UNSTABLE
 #define _LIBCPP_HIDE_FROM_ABI_PER_TU_BY_DEFAULT
@@ -25,7 +25,7 @@
 
 #undef __FAST_MATH__
 
-#endif // __EVM__
+#endif // __EVM__ || __ASSIGNER__
 
 #if defined(_MSC_VER) && !defined(__clang__)
 #  if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
@@ -1134,10 +1134,10 @@ _LIBCPP_FUNC_VIS extern "C" void __sanitizer_annotate_contiguous_container(
 #error _LIBCPP_HAS_NO_MONOTONIC_CLOCK may only be defined when \
        _LIBCPP_HAS_NO_THREADS is defined.
 #endif
-#ifdef __EVM__
+#if defined(__EVM__) || defined (__ASSIGNER__)
 // To avoid error "_LIBCPP_HAS_NO_THREADS cannot be set when __STDCPP_THREADS__ is set"
 #undef __STDCPP_THREADS__
-#endif // __EVM__
+#endif // __EVM__ || __ASSIGNER__
 
 #if defined(__STDCPP_THREADS__) && defined(_LIBCPP_HAS_NO_THREADS)
 #error _LIBCPP_HAS_NO_THREADS cannot be set when __STDCPP_THREADS__ is set.
