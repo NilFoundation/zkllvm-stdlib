@@ -182,3 +182,5 @@ add_library(c STATIC ${SRCS})
 #add_test(NAME tlimits COMMAND tlimits)
 #add_test(NAME tstdarg COMMAND tstdarg)
 #add_test(NAME tstddef COMMAND tstddef)
+
+add_circuit(zkllvm-libc SOURCES zk/malloc.c)
