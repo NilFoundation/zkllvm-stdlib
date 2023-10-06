@@ -184,3 +184,15 @@ endif ()
 #add_test(NAME tstddef COMMAND tstddef)
 
 add_circuit_no_stdlib(zkllvm-libc SOURCES zk/malloc.c)
+
+# Make sure zkllvm-libc builds as part of "all"
+add_custom_target(zkllvm-libc-all ALL DEPENDS zkllvm-libc)
+
+if (CIRCUIT_ASSEMBLY_OUTPUT)
+  install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/zkllvm-libc.ll DESTINATION lib/zkllvm)
+else()
+  install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/zkllvm-libc.bc DESTINATION lib/zkllvm)
+endif()
+
+install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/include/ DESTINATION include/zkllvm)
+install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/../libcpp/ DESTINATION include/zkllvm/c++)
