@@ -183,7 +183,14 @@ endif ()
 #add_test(NAME tstdarg COMMAND tstdarg)
 #add_test(NAME tstddef COMMAND tstddef)
 
-add_circuit_no_stdlib(zkllvm-libc SOURCES zk/malloc.c)
+add_circuit_no_stdlib(zkllvm-libc SOURCES
+        zk/malloc.c
+        zk/strlen.c
+        libc/string/strcmp.c
+        libc/string/strncmp.c
+        libc/string/strcpy.c
+        libc/string/strncpy.c
+)
 
 # Make sure zkllvm-libc builds as part of "all"
 add_custom_target(zkllvm-libc-all ALL DEPENDS zkllvm-libc)
