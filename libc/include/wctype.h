@@ -1,4 +1,4 @@
-
+#include <wchar.h>
 
 typedef const int32_t *wctrans_t;
 typedef unsigned long int wctype_t;
@@ -22,4 +22,3 @@ wint_t towlower(wint_t wc);
 wint_t towupper(wint_t wc);
 wint_t towctrans(wint_t wc, wctrans_t desc);
 wctrans_t wctrans(const char *property);
-
