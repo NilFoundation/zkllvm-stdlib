@@ -17,6 +17,16 @@ if (LIBC_INSTALL_HEADERS)
   add_custom_target(install-zkllvm-c-headers-stripped DEPENDS install-zkllvm-c-headers)
 endif()
 
-if (COMMAND add_circuit)
-  add_circuit(zkllvm-libc SOURCES zk/malloc.c)
+if (COMMAND add_circuit_no_stdlib)
+  add_circuit_no_stdlib(zkllvm-libc SOURCES
+  zk/malloc.c
+  zk/strlen.c
+  libc/string/strcmp.c
+  libc/string/strncmp.c
+  libc/string/strcpy.c
+  libc/string/strncpy.c
+  )
+
+  # Make sure zkllvm-libc builds as part of "all"
+  add_custom_target(zkllvm-libc-all ALL DEPENDS zkllvm-libc)
 endif()

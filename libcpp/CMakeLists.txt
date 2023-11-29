@@ -1093,3 +1093,8 @@ if (LIBCXX_INSTALL_HEADERS)
   )
   add_custom_target(install-zkllvm-cxx-headers-stripped DEPENDS install-zkllvm-cxx-headers)
 endif()
+
+if (COMMAND add_circuit_no_stdlib)
+  add_circuit_no_stdlib(zkllvm-libcpp SOURCES zk/new.cpp)
+  add_custom_target(zkllvm-libcpp-all ALL DEPENDS zkllvm-libcpp)
+endif()
