@@ -29,4 +29,6 @@ if (COMMAND add_circuit_no_stdlib)
 
   # Make sure zkllvm-libc builds as part of "all"
   add_custom_target(zkllvm-libc-all ALL DEPENDS zkllvm-libc)
+
+  install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/zkllvm-libc.ll DESTINATION lib/zkllvm)
 endif()
