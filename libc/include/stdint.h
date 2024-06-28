@@ -47,6 +47,8 @@
 
 #endif /* __GNUC__ */
 
+#define SIZE_MAX        __SIZE_MAX__
+
 #define INT32_MAX       INT32_C(2147483647)
 #define INT32_MIN       (-INT32_MAX - INT32_C(1))
 #define UINT32_MAX      UINT32_C(4294967295)
